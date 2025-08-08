@@ -1,0 +1,106 @@
+{
+  "info": {
+    "name": "POS API",
+    "_postman_id": "pos-collection-001",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "{{API}}/"
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "url": "{{API}}/auth/login?email=admin@example.com&password=admin123"
+      }
+    },
+    {
+      "name": "Create Transaction",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{TOKEN}}"
+          }
+        ],
+        "url": "{{API}}/transactions/create",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"merchant_id\": \"m_demo\",\n  \"amount\": 1299,\n  \"currency\": \"USD\",\n  \"description\": \"Latte\",\n  \"location_id\": 1,\n  \"discount_rate\": 0.1,\n  \"tip_cents\": 200\n}"
+        }
+      }
+    },
+    {
+      "name": "List Transactions",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{TOKEN}}"
+          }
+        ],
+        "url": "{{API}}/transactions?merchant_id=m_demo&limit=10"
+      }
+    },
+    {
+      "name": "Export CSV",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{TOKEN}}"
+          }
+        ],
+        "url": "{{API}}/transactions/export?merchant_id=m_demo"
+      }
+    },
+    {
+      "name": "Receipt HTML",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{TOKEN}}"
+          }
+        ],
+        "url": "{{API}}/receipts/{{TXN}}/html"
+      }
+    },
+    {
+      "name": "Receipt PDF",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{TOKEN}}"
+          }
+        ],
+        "url": "{{API}}/receipts/{{TXN}}/pdf"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "API",
+      "value": "http://localhost/api"
+    },
+    {
+      "key": "TOKEN",
+      "value": ""
+    },
+    {
+      "key": "TXN",
+      "value": "txn_..."
+    }
+  ]
+}
